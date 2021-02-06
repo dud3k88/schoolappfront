@@ -1,0 +1,114 @@
+a[highlight] {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+
+.header h3.logo {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+
+
+.childrenButton
+{
+
+    color: #3399FF;
+    margin-right: 20px;
+    width: 200px;
+    height: 100px;
+    border: 3px solid #3399FF;
+    background: none;
+    box-shadow: 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.childrenButton:hover
+{
+    border: 3px solid white;
+    background-color: #3399FF;
+    color: white;
+    transition-duration: 2s;
+
+}
+.parentsButton
+{
+    color: #3399FF;
+    margin-right: 20px;
+    width: 200px;
+    height: 100px;
+    border: 3px solid #3399FF;
+    background: none;
+    box-shadow: 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.parentsButton:hover
+{
+    border: 3px solid white;
+    background-color: #3399FF;
+    color: white;
+    transition-duration: 2s;
+
+}
+.groupButton
+{
+    color: #3399FF;
+    margin-right: 20px;
+    width: 200px;
+    height: 100px;
+    border: 3px solid #3399FF;
+    background: none;
+    box-shadow: 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.groupButton:hover
+{
+    border: 3px solid white;
+    background-color: #3399FF;
+    color: white;
+    transition-duration: 2s;
+
+}
+.localizationButton
+{
+    color: #3399FF;
+    margin-right: 20px;
+    width: 200px;
+    height: 100px;
+    border: 3px solid #3399FF;
+    background: none;
+    box-shadow: 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.localizationButton:hover
+{
+    border: 3px solid white;
+    background-color: #3399FF;
+    color: white;
+    transition-duration: 2s;
+
+}
+
+.buttonsDiv
+{
+    background-color: #F8F8F8;
+    width: 100%;
+    text-align: center;
+    padding: 50px;
+}
+
+.weather
+{
+    background-color: #F0F0F0;
+    width: 50%;
+    text-align: center;
+    padding: 40px;
+    float: left;
+}
+
+.temp
+{
+    text-align: center;
+}
+
