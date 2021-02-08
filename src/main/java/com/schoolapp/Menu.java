@@ -20,6 +20,7 @@ import java.time.LocalDate;
 
 @Route("Menu")
 @CssImport("./menuStyle.css")
+
 public class Menu extends AppLayout {
 
     public Menu() {

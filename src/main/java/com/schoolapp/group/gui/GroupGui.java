@@ -54,7 +54,7 @@ public class GroupGui extends HorizontalLayout {
         grid.addColumn(GroupDtoClient::getGroupName).setHeader("GROUP NAME");
         grid.addColumn(GroupDtoClient::getMinYearOfBirth).setHeader("MIN YEAR");
         grid.addColumn(GroupDtoClient::getMaxYearOfBirth).setHeader("MAX YEAR");
-        grid.addColumn(GroupDtoClient::getLocalization).setHeader("LOCALIZATION");
+        grid.addColumn(GroupDtoClient::getLocalizationDtoClient).setHeader("LOCALIZATION");
         grid.addColumn(new NativeButtonRenderer<GroupDtoClient>("DELETE", e -> {
             deleteGroup(e.getId());
             refresh();
@@ -88,9 +88,17 @@ public class GroupGui extends HorizontalLayout {
             groupDtoClient.setGroupName(textFieldGroupName.getValue());
             groupDtoClient.setMinYearOfBirth((int) comboBoxMinYear.getValue());
             groupDtoClient.setMaxYearOfBirth((int) combBoxMaxYear.getValue());
-            groupDtoClient.setLocalization(localizationDtoClient);
+            groupDtoClient.setLocalizationDtoClient(localizationDtoClient);
             groupService.createGroup(groupDtoClient);
             refresh();
+            clearUpForm();
+
+            Notification notification = new Notification("Group is Added!");
+            notification.setDuration(3000);
+            notification.setPosition(Notification.Position.MIDDLE);
+            notification.open();
+
+
         } else {
             Notification notification = new Notification("Fields cannot be empty");
             notification.setDuration(3000);
@@ -140,5 +148,12 @@ public class GroupGui extends HorizontalLayout {
                 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
                 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2029, 2020);
         return comboBoxMax;
+    }
+
+    public void clearUpForm() {
+        textFieldGroupName.clear();
+        comboBoxMinYear.clear();
+        combBoxMaxYear.clear();
+        localizationBox.clear();
     }
 }

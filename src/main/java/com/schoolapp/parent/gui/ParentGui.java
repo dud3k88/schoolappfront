@@ -95,6 +95,11 @@ public class ParentGui extends HorizontalLayout {
             parentService.createParent(parent);
             clearUpForm();
             refresh();
+
+            Notification notification = new Notification("Parent is Added");
+            notification.setDuration(3000);
+            notification.setPosition(Notification.Position.MIDDLE);
+            notification.open();
         } else {
             Notification notification = new Notification("Fields cannot be empty");
             notification.setDuration(3000);

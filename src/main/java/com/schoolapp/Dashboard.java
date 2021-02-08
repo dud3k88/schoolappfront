@@ -1,27 +1,19 @@
 package com.schoolapp;
 
-import com.schoolapp.child.gui.ChildGui;
 import com.schoolapp.child.service.ChildService;
+import com.schoolapp.euro.service.EuroService;
 import com.schoolapp.group.service.GroupService;
 import com.schoolapp.localiation.service.LocalizationService;
 import com.schoolapp.parent.service.ParentService;
-import com.schoolapp.weather.model.WeatherDto;
 import com.schoolapp.weather.service.WeatherService;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.theme.Theme;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "", layout = Menu.class)
 @CssImport("./menuStyle.css")
@@ -32,15 +24,26 @@ public class Dashboard extends VerticalLayout {
    private final WeatherService weatherService;
    private final GroupService groupService;
    private final LocalizationService localizationService;
+   private final EuroService euroService;
+   private Label euroValueLabel = new Label("Euro Value");
+   private Div weather = new Div();
+   private Div buttonsDiv = new Div();
 
     public Dashboard(WeatherService weatherService, ChildService childService, ParentService parentService,
-                     GroupService groupService, LocalizationService localizationService) {
+                     GroupService groupService, LocalizationService localizationService, EuroService euroService) {
         this.weatherService = weatherService;
         this.childService = childService;
         this.parentService = parentService;
         this.groupService = groupService;
         this.localizationService = localizationService;
+        this.euroService = euroService;
 
+        createMainButtonNavigation();
+        createWeatherAndEuroView();
+
+    }
+
+    public void createMainButtonNavigation() {
         Button childrenButton = new Button("CHILDREN (" + childrenStats() + ")");
         childrenButton.addClassName("childrenButton");
         childrenButton.addClickListener(event -> {
@@ -65,12 +68,18 @@ public class Dashboard extends VerticalLayout {
             localizationButton.getUI().ifPresent(ui -> {ui.navigate("Localization");});
         });
 
-        Div buttonsDiv = new Div();
         buttonsDiv.add(childrenButton, parentsButton, groupButton, localizationButton);
         buttonsDiv.setClassName("buttonsDiv");
-
         add(buttonsDiv);
-        weatherInformation();
+    }
+
+    private void createWeatherAndEuroView() {
+        euroValueLabel.setText("EURO VALUE\n: " + String.valueOf(euroService.getEuroValue().getEuroValue()));
+        euroValueLabel.addClassName("euroValueLabel");
+        weather = weatherInformation();
+        HorizontalLayout weatherAndEuro = new HorizontalLayout(weather, euroValueLabel);
+        weatherAndEuro.addClassName("weatherAndEuro");
+        add(weatherAndEuro);
     }
 
     private int childrenStats() {
@@ -91,7 +100,7 @@ public class Dashboard extends VerticalLayout {
         return size;
     }
 
-    public void weatherInformation() {
+    public Div weatherInformation() {
         Span tempSpan = new Span("Temperature: ");
         tempSpan.setClassName("tempSpan");
         Label tempLabel = new Label();
@@ -115,10 +124,10 @@ public class Dashboard extends VerticalLayout {
 
         Label city = new Label();
         city.setText("WROCŁAW FORECAST");
-        Div weather = new Div();
+
         weather.addClassName("weather");
         weather.add(city, tempDiv, pressureDiv, humidityDiv, windSpeedDiv);
 
-        add(weather);
+        return weather;
     }
 }

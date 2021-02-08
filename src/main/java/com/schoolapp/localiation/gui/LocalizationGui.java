@@ -69,6 +69,13 @@ public class LocalizationGui extends HorizontalLayout {
             localizationDtoClient.setLocalizationName(localizationName.getValue());
             localizationService.createLocalization(localizationDtoClient);
             clearUpForm();
+
+            Notification notification = new Notification("Localization is Added");
+            notification.setDuration(3000);
+            notification.setPosition(Notification.Position.MIDDLE);
+            notification.open();
+
+
         } else {
             Notification notification = new Notification("Fields cannot be empty");
             notification.setDuration(3000);
@@ -79,7 +86,7 @@ public class LocalizationGui extends HorizontalLayout {
 
     public void deleteLocalization(Long localizationId) {
         final long count = groupService.getAllGroups().stream()
-                .filter(t -> t.getLocalization().getId().equals(localizationId))
+                .filter(t -> t.getLocalizationDtoClient().getId().equals(localizationId))
                 .count();
         if (count > 0) {
             Span span = new Span("You can't delete this Localization, " +
@@ -100,7 +107,7 @@ public class LocalizationGui extends HorizontalLayout {
 
     public int countGroups (Long localizationId) {
         final long count = groupService.getAllGroups().stream()
-                .filter(t -> t.getLocalization().getId().equals(localizationId))
+                .filter(t -> t.getLocalizationDtoClient().getId().equals(localizationId))
                 .count();
 
         return (int) count;
